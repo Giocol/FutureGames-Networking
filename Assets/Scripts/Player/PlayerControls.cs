@@ -35,6 +35,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d7a511f-5afe-47aa-ac3f-04df6c69430b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a8470ac-3822-4971-aa8a-83a42d6e2ed3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MainPlayer"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -107,6 +127,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // MainPlayer
         m_MainPlayer = asset.FindActionMap("MainPlayer", throwIfNotFound: true);
         m_MainPlayer_Move = m_MainPlayer.FindAction("Move", throwIfNotFound: true);
+        m_MainPlayer_Shoot = m_MainPlayer.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -169,11 +190,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_MainPlayer;
     private List<IMainPlayerActions> m_MainPlayerActionsCallbackInterfaces = new List<IMainPlayerActions>();
     private readonly InputAction m_MainPlayer_Move;
+    private readonly InputAction m_MainPlayer_Shoot;
     public struct MainPlayerActions
     {
         private @PlayerControls m_Wrapper;
         public MainPlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_MainPlayer_Move;
+        public InputAction @Shoot => m_Wrapper.m_MainPlayer_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_MainPlayer; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -186,6 +209,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IMainPlayerActions instance)
@@ -193,6 +219,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IMainPlayerActions instance)
@@ -222,5 +251,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IMainPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

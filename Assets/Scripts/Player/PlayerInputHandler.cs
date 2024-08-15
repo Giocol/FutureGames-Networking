@@ -7,7 +7,7 @@ namespace Player
 {
     public class PlayerInputHandler : NetworkBehaviour
     {
-        [SerializeField] private float movementSpeed = 0.001f;
+        [SerializeField] private float movementSpeed = 0.1f;
         
         private InputAction moveAction;
         private PlayerControls controls;
@@ -35,10 +35,10 @@ namespace Player
             Debug.Log("Shoot");
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if(IsServer) 
-                transform.position += (new Vector3(moveInput.Value.x, 0, moveInput.Value.y) * movementSpeed);
+                transform.position += (Vector3) moveInput.Value * movementSpeed;
         }
 
         [Rpc(SendTo.Server)]

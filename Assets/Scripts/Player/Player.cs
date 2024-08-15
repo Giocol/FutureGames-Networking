@@ -1,13 +1,18 @@
 ﻿using System;
+using Data;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public class PlayerInputHandler : NetworkBehaviour
+    public class Player : NetworkBehaviour
     {
         [SerializeField] private float movementSpeed = 0.1f;
+        [SerializeField] private float forwardSpeed = 1f;
+        [SerializeField] private Vector3 hostSpawnPosition;
+        [SerializeField] private Vector3 clientSpanwPosition;
+        [SerializeField] private GameState gameState;
         
         private InputAction moveAction;
         private PlayerControls controls;
@@ -21,6 +26,11 @@ namespace Player
             controls.MainPlayer.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
             controls.MainPlayer.Move.canceled += _ => OnMove(new Vector2(0, 0));
             controls.MainPlayer.Shoot.performed += _ => OnShoot();
+
+            if (IsServer)
+                transform.position = hostSpawnPosition;
+            else
+                transform.position = clientSpanwPosition;
         }
 
         private void OnMove(Vector2 input)
@@ -37,8 +47,10 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if(IsServer) 
-                transform.position += (Vector3) moveInput.Value * movementSpeed;
+            if (IsServer && gameState.isGameRunning)
+            {
+                transform.position += new Vector3(moveInput.Value.x * movementSpeed, forwardSpeed);
+            }
         }
 
         [Rpc(SendTo.Server)]

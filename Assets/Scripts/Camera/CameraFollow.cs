@@ -6,12 +6,12 @@ namespace Camera
 {
     public class CameraFollow : MonoBehaviour
     {
-        private NetworkObject goToFollow;
+        [SerializeField] private NetworkObject goToFollow;
         private bool canFollow = false;
 
         public void InitCameraFollow()
         {
-            goToFollow = NetworkManager.Singleton.LocalClient.PlayerObject;
+            goToFollow = NetworkManager.Singleton.ConnectedClients[0].PlayerObject;
             canFollow = true;
         }
 

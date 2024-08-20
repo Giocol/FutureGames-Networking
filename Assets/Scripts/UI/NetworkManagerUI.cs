@@ -6,7 +6,7 @@ using UnityEngine;
 namespace UI
 {
     //Mostly taken from Unity's official NGO docs
-    public class NetworkManagerHandler : MonoBehaviour
+    public class NetworkManagerUI : MonoBehaviour
     {
         [SerializeField] private UnityEngine.Camera hostCamera;
         [SerializeField] private UnityEngine.Camera clientCamera;

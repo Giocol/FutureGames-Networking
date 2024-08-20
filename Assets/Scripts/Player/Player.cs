@@ -1,5 +1,6 @@
 ﻿using System;
 using Data;
+using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -31,6 +32,7 @@ namespace Player
                 transform.position = hostSpawnPosition;
             else
                 transform.position = clientSpanwPosition;
+            
         }
 
         private void OnMove(Vector2 input)
@@ -58,6 +60,5 @@ namespace Player
         {
             moveInput.Value = input;
         }
-
     }
 }

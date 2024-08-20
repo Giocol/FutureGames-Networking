@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1875ee58006a49bd81c2e9baf4119a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goToFollow: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,8 +633,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1654719205}
-        m_TargetAssemblyTypeName: UI.NetworkManagerHandler, Assembly-CSharp
-        m_MethodName: OnStartButton
+        m_TargetAssemblyTypeName: UI.NetworkManagerUI, Assembly-CSharp
+        m_MethodName: OnStartButtonRpc
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -844,6 +845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1875ee58006a49bd81c2e9baf4119a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goToFollow: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

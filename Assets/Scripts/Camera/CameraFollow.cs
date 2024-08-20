@@ -4,14 +4,15 @@ using UnityEngine;
 
 namespace Camera
 {
-    public class CameraFollow : MonoBehaviour
+    public class CameraFollow : NetworkBehaviour
     {
-        [SerializeField] private NetworkObject goToFollow;
+        [SerializeField] private GameObject goToFollow;
         private bool canFollow = false;
 
-        public void InitCameraFollow()
+        [Rpc(SendTo.Everyone)]
+        public void InitCameraFollowRpc()
         {
-            goToFollow = NetworkManager.Singleton.ConnectedClients[0].PlayerObject;
+            this.goToFollow = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject;
             canFollow = true;
         }
 

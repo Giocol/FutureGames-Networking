@@ -77,8 +77,8 @@ namespace UI
 
         public void OnStartButton()
         {
-            hostCamera.GetComponent<CameraFollow>().InitCameraFollow();
-            clientCamera.GetComponent<CameraFollow>().InitCameraFollow();
+            hostCamera.GetComponent<CameraFollow>().InitCameraFollowRpc();
+            clientCamera.GetComponent<CameraFollow>().InitCameraFollowRpc();
             gameState.isGameRunning = true;
             startButton.SetActive(false);
         }

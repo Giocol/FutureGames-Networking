@@ -60,5 +60,12 @@ namespace Player
         {
             moveInput.Value = input;
         }
+
+        public override void OnNetworkSpawn()
+        {
+            if(IsServer)
+                transform.position = IsLocalPlayer ? hostSpawnPosition : clientSpanwPosition;
+            base.OnNetworkSpawn();
+        }
     }
 }

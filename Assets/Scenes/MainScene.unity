@@ -634,7 +634,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1654719205}
         m_TargetAssemblyTypeName: UI.NetworkManagerUI, Assembly-CSharp
-        m_MethodName: OnStartButtonRpc
+        m_MethodName: OnStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

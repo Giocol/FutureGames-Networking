@@ -1,4 +1,5 @@
 ﻿using System;
+using Camera;
 using Data;
 using Unity.Mathematics;
 using Unity.Netcode;
@@ -17,8 +18,20 @@ namespace Player
         
         private InputAction moveAction;
         private PlayerControls controls;
+        private Vector3 targetPosition;
 
         private NetworkVariable<Vector2> moveInput = new NetworkVariable<Vector2>();
+
+        [SerializeField] private CameraFollow hostCameraFollow;
+        [SerializeField] private CameraFollow clientCameraFollow;
+        
+        [Rpc(SendTo.Everyone)]
+        public void OnStartRpc()
+        {
+            hostCameraFollow.InitCameraFollow(gameObject);
+            clientCameraFollow.InitCameraFollow(gameObject);
+            gameState.isGameRunning = true;
+        }
 
         private void Awake()
         {
@@ -32,7 +45,11 @@ namespace Player
                 transform.position = hostSpawnPosition;
             else
                 transform.position = clientSpanwPosition;
+
+            hostCameraFollow = UnityEngine.Camera.allCameras[0].GetComponent<CameraFollow>(); //awful approach, i know :/
+            clientCameraFollow = UnityEngine.Camera.allCameras[1].GetComponent<CameraFollow>();
             
+            //targetPosition = transform.position;
         }
 
         private void OnMove(Vector2 input)
@@ -47,10 +64,12 @@ namespace Player
             Debug.Log("Shoot");
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (IsServer && gameState.isGameRunning)
             {
+                //targetPosition += new Vector3(moveInput.Value.x * movementSpeed, forwardSpeed);
+                //transform.position = targetPosition;
                 transform.position += new Vector3(moveInput.Value.x * movementSpeed, forwardSpeed);
             }
         }

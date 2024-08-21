@@ -77,7 +77,7 @@ namespace Player
             Debug.Log("Shoot");
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (IsServer && gameState.isGameRunning)
             {

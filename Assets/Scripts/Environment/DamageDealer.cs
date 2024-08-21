@@ -5,7 +5,7 @@ namespace Environment
 {
     public class DamageDealer : MonoBehaviour
     {
-        private void OnCollisionEnter(Collision other)
+        private void OnCollisionEnter2D (Collision2D other)
         {
             Player.Player player = other.gameObject.GetComponent<Player.Player>();
             if(!player)

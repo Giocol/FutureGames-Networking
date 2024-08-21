@@ -1,9 +1,10 @@
 ﻿using System;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Environment
 {
-    public class DamageDealer : MonoBehaviour
+    public class DamageDealer : NetworkBehaviour
     {
         [SerializeField] private float timeToLive = 10;
         private float timeAlive;
@@ -17,7 +18,7 @@ namespace Environment
         {
             timeAlive += Time.deltaTime;
             if(timeAlive >= timeToLive)
-                Destroy(gameObject);
+                DestroyRpc();
         }
 
         private void OnCollisionEnter2D (Collision2D other)
@@ -28,6 +29,12 @@ namespace Environment
             player.OnTakeDamage();
             
             //play crash sfx, etc.
+        }
+
+        [Rpc(SendTo.Server)]
+        private void DestroyRpc()
+        {
+            Destroy(gameObject);
         }
     }
 }

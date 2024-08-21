@@ -33,6 +33,19 @@ namespace Player
             gameState.isGameRunning = true;
         }
 
+        public override void OnNetworkSpawn()
+        {
+            if(IsServer)
+                transform.position = IsLocalPlayer ? hostSpawnPosition : clientSpanwPosition;
+            base.OnNetworkSpawn();
+        }
+
+        public void OnTakeDamage()
+        {
+            Debug.Log("YOU LOSE!");
+            //rpc on loss
+        }
+
         private void Awake()
         {
             controls = new PlayerControls();
@@ -78,13 +91,6 @@ namespace Player
         private void SendInputToServerRPC(Vector2 input)
         {
             moveInput.Value = input;
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            if(IsServer)
-                transform.position = IsLocalPlayer ? hostSpawnPosition : clientSpanwPosition;
-            base.OnNetworkSpawn();
         }
     }
 }

@@ -42,8 +42,14 @@ namespace Player
 
         public void OnTakeDamage()
         {
-            Debug.Log("YOU LOSE!");
             //rpc on loss
+            OnLossRpc();
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void OnLossRpc()
+        {
+            Debug.Log("YOU LOSE!");
         }
 
         private void Awake()

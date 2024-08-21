@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: -2942035733910918021}
   - component: {fileID: 291517003262273325}
   - component: {fileID: 4600766034899352453}
+  - component: {fileID: 7181663194237822915}
+  - component: {fileID: -2891087283398122334}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -48,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 901274947
+  GlobalObjectIdHash: 1041726957
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -105,6 +107,8 @@ MonoBehaviour:
   hostSpawnPosition: {x: 0, y: 0, z: 0}
   clientSpanwPosition: {x: 10.75, y: 0, z: 0}
   gameState: {fileID: 11400000, guid: c3dd57ee86e129b48acdac2993abbd05, type: 2}
+  hostCameraFollow: {fileID: 0}
+  clientCameraFollow: {fileID: 0}
 --- !u!61 &291517003262273325
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -202,3 +206,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &7181663194237822915
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684250638165790059}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-2891087283398122334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684250638165790059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37499f42e2ff42dc8ebc0b5ef4cd4964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefab: {fileID: 6557826202056667923, guid: c0cebdb1e0deaec4ba59012423b92407,
+    type: 3}
+  deltaXMin: 4
+  deltaXMax: 4
+  deltaY: 10
+  spawnCooldown: 3

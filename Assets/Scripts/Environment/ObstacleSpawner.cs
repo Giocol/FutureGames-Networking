@@ -1,4 +1,5 @@
 ﻿using System;
+using Data;
 using Unity.Netcode;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,6 +13,7 @@ namespace Environment
         [SerializeField] private float deltaXMax = 4;
         [SerializeField] private float deltaY = 5;
         [SerializeField] private float spawnCooldown = 5;
+        [SerializeField] private GameState gameState;
 
         private float timeSinceLastSpawn = 0;
 
@@ -19,10 +21,16 @@ namespace Environment
         {
             if(!obstaclePrefab)
                 Debug.LogError("Missing obstacle prefab! Please plug it into the inspector!");
+            
+            if(!gameState)
+                Debug.LogError("Missing gameState! Please plug it into the inspector!");
         }
 
         private void Update()
         {
+            if(!gameState.isGameRunning)
+                return;
+            
             timeSinceLastSpawn += Time.deltaTime;
             if (timeSinceLastSpawn >= spawnCooldown)
             {

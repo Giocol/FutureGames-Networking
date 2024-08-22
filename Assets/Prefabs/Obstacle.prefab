@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4998628334580636352}
   - component: {fileID: 5587073088738961750}
   - component: {fileID: 6093270750808113853}
+  - component: {fileID: 5618585102779469827}
   - component: {fileID: 6455355473027113316}
   - component: {fileID: 7289649476690761825}
-  - component: {fileID: 5618585102779469827}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -86,6 +86,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5618585102779469827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6557826202056667923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 961938623
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &6455355473027113316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb584bc03ce94162ab4aa37c735490d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToLive: 10
 --- !u!61 &7289649476690761825
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -143,24 +165,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5618585102779469827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6557826202056667923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 961938623
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1

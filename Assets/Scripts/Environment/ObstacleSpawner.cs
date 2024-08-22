@@ -28,14 +28,13 @@ namespace Environment
 
         private void Update()
         {
-            if(!gameState.isGameRunning)
+            if(!gameState.isGameRunning || !IsServer)
                 return;
             
             timeSinceLastSpawn += Time.deltaTime;
             if (timeSinceLastSpawn >= spawnCooldown)
             {
-                if(IsServer)
-                    SpawnObstacle();
+                SpawnObstacle();
                 timeSinceLastSpawn = 0;
             }
         }

@@ -478,7 +478,7 @@ MonoBehaviour:
   movementSpeed: 0.05
   forwardSpeed: 0.1
   hostSpawnPosition: {x: 0, y: 0, z: 0}
-  clientSpawnPosition: {x: 13, y: 0, z: 0}
+  clientSpawnPosition: {x: 11, y: 0, z: 0}
   gameState: {fileID: 11400000, guid: c3dd57ee86e129b48acdac2993abbd05, type: 2}
   clientWaitingUI: {fileID: 7040668285391788370}
   winUI: {fileID: 2011558144522117755}

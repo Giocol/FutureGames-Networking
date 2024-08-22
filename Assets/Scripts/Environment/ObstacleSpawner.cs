@@ -34,13 +34,13 @@ namespace Environment
             timeSinceLastSpawn += Time.deltaTime;
             if (timeSinceLastSpawn >= spawnCooldown)
             {
-                SpawnObstacleRpc();
+                if(IsServer)
+                    SpawnObstacle();
                 timeSinceLastSpawn = 0;
             }
         }
 
-        [Rpc(SendTo.Server)]
-        private void SpawnObstacleRpc()
+        private void SpawnObstacle()
         {
             Vector3 position = gameObject.transform.position;
             float spawnX = Random.Range(position.x - deltaXMin, position.x + deltaXMax);

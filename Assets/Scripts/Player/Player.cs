@@ -15,6 +15,7 @@ namespace Player
         [SerializeField] private Vector3 hostSpawnPosition;
         [SerializeField] private Vector3 clientSpanwPosition;
         [SerializeField] private GameState gameState;
+        [SerializeField] private GameObject clientWaitingUI;
         
         private InputAction moveAction;
         private PlayerControls controls;
@@ -22,14 +23,15 @@ namespace Player
 
         private NetworkVariable<Vector2> moveInput = new NetworkVariable<Vector2>();
 
-        [SerializeField] private CameraFollow hostCameraFollow;
-        [SerializeField] private CameraFollow clientCameraFollow;
+        private CameraFollow hostCameraFollow;
+        private CameraFollow clientCameraFollow;
         
         [Rpc(SendTo.Everyone)]
         public void OnStartRpc()
         {
             hostCameraFollow.InitCameraFollow(gameObject);
             clientCameraFollow.InitCameraFollow(gameObject);
+            clientWaitingUI.SetActive(false);
             gameState.isGameRunning = true;
         }
 
@@ -37,6 +39,12 @@ namespace Player
         {
             if(IsServer)
                 transform.position = IsLocalPlayer ? hostSpawnPosition : clientSpanwPosition;
+            
+            if(!clientWaitingUI)
+                Debug.LogError("Missing clientWaitingUI ref! Please make sure to link clientWaitingUI in the editor!");
+            
+            clientWaitingUI.SetActive(!IsServer);
+
             base.OnNetworkSpawn();
         }
 
@@ -67,8 +75,6 @@ namespace Player
 
             hostCameraFollow = UnityEngine.Camera.allCameras[0].GetComponent<CameraFollow>(); //awful approach, i know :/
             clientCameraFollow = UnityEngine.Camera.allCameras[1].GetComponent<CameraFollow>();
-            
-            //targetPosition = transform.position;
         }
 
         private void OnMove(Vector2 input)

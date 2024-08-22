@@ -12,10 +12,37 @@ namespace UI
         [SerializeField] private UnityEngine.Camera clientCamera;
         [SerializeField] private GameState gameState;
         [SerializeField] private GameObject startButton;
+        [SerializeField] private GameObject clientButton;
+        [SerializeField] private GameObject hostButton;
 
         private NetworkManager networkManagerRef;
+        
+        public void OnHostButtonPress()
+        {
+            networkManagerRef.StartHost();
+            
+            startButton.SetActive(true);
+            ToggleNetworkButtons(false);
+        }
 
-        void Awake()
+        public void OnClientButtonPress()
+        {
+            networkManagerRef.StartClient();
+            
+            ToggleNetworkButtons(false);
+        }
+        
+        public void OnStartButton()
+        {
+            foreach(NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+            {
+                client.PlayerObject.gameObject.GetComponent<Player.Player>().OnStartRpc();
+            }
+            gameState.isGameRunning = true;
+            startButton.SetActive(false);
+        }
+        
+        private void Awake()
         {
             networkManagerRef = GetComponent<NetworkManager>();
             
@@ -35,37 +62,29 @@ namespace UI
             if(!startButton)
                 Debug.LogError("Missing startButton ref! Please make sure to link StartButton in the editor!");
             
+            if(!hostButton)
+                Debug.LogError("Missing hostButton ref! Please make sure to link hostButton in the editor!");
+            
+            if(!clientButton)
+                Debug.LogError("Missing clientButton ref! Please make sure to link clientButton in the editor!");
+            
+            
             startButton.SetActive(false);
+            ToggleNetworkButtons(true);
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));
-            if (!networkManagerRef.IsClient && !networkManagerRef.IsServer)
-            {
-                StartButtons();
-            }
-            else
+            if (networkManagerRef.IsClient || networkManagerRef.IsServer)
             {
                 StatusLabels();
             }
 
             GUILayout.EndArea();
         }
-        void StartButtons()
-        {
-            if (GUILayout.Button("Host"))
-            {
-                startButton.SetActive(true);
-                networkManagerRef.StartHost();
-            }
 
-            if (GUILayout.Button("Client"))
-            {
-                networkManagerRef.StartClient();
-            }
-        }
-        void StatusLabels()
+        private void StatusLabels()
         {
             var mode = networkManagerRef.IsHost ?
                 "Host" : networkManagerRef.IsServer ? "Server" : "Client";
@@ -75,14 +94,10 @@ namespace UI
             GUILayout.Label("Mode: " + mode);
         }
 
-        public void OnStartButton()
+        private void ToggleNetworkButtons(bool state)
         {
-            foreach(NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
-            {
-                client.PlayerObject.gameObject.GetComponent<Player.Player>().OnStartRpc();
-            }
-            gameState.isGameRunning = true;
-            startButton.SetActive(false);
+            hostButton.SetActive(state);
+            clientButton.SetActive(state);
         }
     }
 }

@@ -93,12 +93,8 @@ namespace Player
             controls.Enable();
             controls.MainPlayer.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
             controls.MainPlayer.Move.canceled += _ => OnMove(new Vector2(0, 0));
-            controls.MainPlayer.Shoot.performed += _ => OnShoot();
 
-            if (IsServer)
-                transform.position = hostSpawnPosition;
-            else
-                transform.position = clientSpawnPosition;
+            transform.position = IsServer ? hostSpawnPosition : clientSpawnPosition;
 
             hostCameraFollow = UnityEngine.Camera.allCameras[0].GetComponent<CameraFollow>(); //awful approach, i know :/
             clientCameraFollow = UnityEngine.Camera.allCameras[1].GetComponent<CameraFollow>();
@@ -111,17 +107,10 @@ namespace Player
                 SendInputToServerRPC(input);
         }
 
-        private void OnShoot()
-        {
-            Debug.Log("Shoot");
-        }
-
         private void FixedUpdate()
         {
             if (IsServer && gameState.isGameRunning)
             {
-                //targetPosition += new Vector3(moveInput.Value.x * movementSpeed, forwardSpeed);
-                //transform.position = targetPosition;
                 transform.position += new Vector3(moveInput.Value.x * movementSpeed, forwardSpeed);
             }
         }
